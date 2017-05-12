@@ -1,9 +1,5 @@
 from xml.dom.minidom import parseString
 
-source = open('team.xml')
-source = source.readlines()[0]
-source = source.__str__()
-
 
 class Parser:
 
@@ -39,7 +35,7 @@ class ScoreParser(Parser):
                 return id.parentNode.toxml()
 
 
-class NewOddsParser(Parser):
+class EarlyOddsParser(Parser):
 
     def __init__(self, source, target, company):
         Parser.__init__(self, source, target)
@@ -119,7 +115,7 @@ class NewOddsParser(Parser):
         return map(split_clause, parts[1:5])
 
 
-class OddsParser(Parser):
+class InplayParser(Parser):
 
     def __init__(self, source, target, company):
         Parser.__init__(self, source, target)
@@ -153,6 +149,3 @@ class OddsParser(Parser):
                     if odds_type == type:
                         all_odds[type].append(content)
         return all_odds
-
-aa = OddsParser(source, '1288337', ['14', '3'])
-aa.show_data()

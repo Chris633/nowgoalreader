@@ -1,27 +1,26 @@
-odds = open('odds.txt')
+import downloader
+import parser
+import sys
 
-parts = odds.readline().split('$')
+TYPE = ['score', 'inplay', 'early']
 
-print len(parts)
+if __name__ == '__main__':
+    ARGS = sys.argv
+    type = ARGS[0]
+    if type not in TYPE:
+        print 'You should specify checking keyword: {score, inplay, early}'
 
-def split_clauses(clauses):
-    return clauses.split(';')
+    europe_id = ARGS[1]
 
-print len(map(split_clauses, parts[1:5])[0])
+    p = None
+    if type == 'score':
+        d = downloader.ScoreDownloader()
+        p = parser.ScoreParser(d.download(), europe_id)
+    elif type == 'inplay':
+        d = downloader.InplayOddsDownloader()
+        p = parser.InplayParser(d.download(), europe_id, ['24', '3'])
+    elif type == 'early':
+        d = downloader.EarlyOddsDownloader()
+        p = parser.EarlyOddsParser(d.download(), europe_id, ['24', '3'])
 
-# part = parts[1]
-# matches = part.split(';')
-# for match in matches:
-#     tmp = match.split(',')
-#     print tmp[0:24]
-
-
-# part = parts[2]
-# i = 3
-# for part in parts[2:]:
-#     print i
-#     matches = part.split(';')
-#     for match in matches:
-#         if '1288337' in match:
-#             print match
-#     i += 1
+    p.show_data()

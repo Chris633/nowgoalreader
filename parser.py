@@ -124,7 +124,10 @@ class InplayParser(Parser):
 
     def show_data(self):
         all_odds = self.__find_target__(self.__parse__())
-        print all_odds
+        for odds in all_odds:
+            odds = all_odds[odds]
+            for o in odds:
+                print o
 
     def __parse__(self):
         return parseString(self.source).getElementsByTagName('h')

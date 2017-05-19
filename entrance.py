@@ -21,6 +21,6 @@ if __name__ == '__main__':
         p = parser.InplayParser(d.download(), europe_id, ['24', '3'])
     elif type == 'early':
         d = downloader.EarlyOddsDownloader()
-        p = parser.EarlyOddsParser(d.download(), europe_id, ['24', '3'])
+        p = parser.EarlyOddsParser(d.download(), europe_id, ['24'])
 
     p.show_data()

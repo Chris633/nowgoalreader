@@ -1,5 +1,5 @@
 from xml.dom.minidom import parseString
-
+import pprint
 
 class Parser:
 
@@ -76,15 +76,15 @@ class EarlyOddsParser(Parser):
         hilo['away_odds'] = hilo_odds[7]
         display['hilo'] = hilo
 
-        print display
+        pprint.pprint(display)
         return display
 
     def __find_target__(self, ids):
         result = list()
 
         matches = ids[0]
-        standard = ids[1]
-        handicap = ids[2]
+        standard = ids[2]
+        handicap = ids[1]
         hilo = ids[3]
 
         for match in matches:
@@ -97,7 +97,6 @@ class EarlyOddsParser(Parser):
                 if self.target in clause and company in self.company:
                     result.append(clause)
 
-        # add_to_result(matches)
         add_to_result(standard)
         add_to_result(handicap)
         add_to_result(hilo)

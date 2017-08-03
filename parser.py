@@ -1,6 +1,7 @@
 from xml.dom.minidom import parseString
 import pprint
 
+
 class Parser:
 
     def __init__(self, source, target):
@@ -49,6 +50,8 @@ class EarlyOddsParser(Parser):
         match = company_odds[0].split(',')
         display['match_time'] = match[2]
         display['start_time'] = match[3]
+        display['home_team'] = match[5]
+        display['away_team'] = match[10]
         display['state'] = match[14]
         display['home_score'] = match[15]
         display['away_score'] = match[16]
@@ -100,8 +103,6 @@ class EarlyOddsParser(Parser):
         add_to_result(standard)
         add_to_result(handicap)
         add_to_result(hilo)
-        for r in result:
-            print r
         return result
 
     def __parse__(self):
@@ -123,10 +124,7 @@ class InplayParser(Parser):
 
     def show_data(self):
         all_odds = self.__find_target__(self.__parse__())
-        for odds in all_odds:
-            odds = all_odds[odds]
-            for o in odds:
-                print o
+        pprint.pprint(all_odds)
 
     def __parse__(self):
         return parseString(self.source).getElementsByTagName('h')
@@ -145,9 +143,11 @@ class InplayParser(Parser):
         for id in ids:
             content = id.toxml().split(',')
             company = content[8]
-            if company in self.company:
-                odds_type = content[7]
-                for type in self.odds_type:
-                    if odds_type == type:
-                        all_odds[type].append(content)
+            odds_type = content[7]
+            if company in self.company and odds_type in self.odds_type:
+                all_odds[odds_type].append(id)
         return all_odds
+
+    @staticmethod
+    def __compare_time(first_time, second_time):
+        pass

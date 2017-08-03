@@ -145,7 +145,7 @@ class InplayParser(Parser):
             company = content[8]
             odds_type = content[7]
             if company in self.company and odds_type in self.odds_type:
-                all_odds[odds_type].append(id)
+                all_odds[odds_type].append(content)
         return all_odds
 
     @staticmethod

@@ -263,7 +263,7 @@ class InplayParser(Parser):
         print "%50s" % "Handicap:\n"
         print "%5s" % u"记录ID", "%8s" % u"比赛ID", "%3s" % u"时间", "%5s" % u"主队得分",\
             "%5s" % u"客队得分", "%4s" % u"主队红牌", "%4s" % u"客队红牌", "%2s" % u"类型",\
-            "%3s" % u"公司ID", "%4s" % u"Home", "%4s" % u"Line", "%4s" % u"Away", "%8s" % u"变盘时间"
+            "%3s" % u"公司ID", "%6s" % u"Home", "%6s" % u"Line", "%6s" % u"Away", "%10s" % u"变盘时间"
 
         for text1 in all_odds['1']:
             print "%s" % text1[0][3:], "%8s" % text1[1], "%4s" % text1[2],\
@@ -274,7 +274,7 @@ class InplayParser(Parser):
         print "%50s" % "Hilo:\n"
         print "%5s" % u"记录ID", "%8s" % u"比赛ID", "%3s" % u"时间", "%5s" % u"主队得分", \
             "%5s" % u"客队得分", "%4s" % u"主队红牌", "%4s" % u"客队红牌", "%2s" % u"类型", \
-            "%3s" % u"公司ID", "%4s" % u"High", "%4s" % u"Line", "%4s" % u"Low", "%8s" % u"变盘时间"
+            "%3s" % u"公司ID", "%6s" % u"High", "%6s" % u"Line", "%6s" % u"Low", "%10s" % u"变盘时间"
 
         for text1 in all_odds['2']:
             print "%s" % text1[0][3:], "%8s" % text1[1], "%4s" % text1[2], \
@@ -285,7 +285,7 @@ class InplayParser(Parser):
         print "%50s" % "Standard:\n"
         print "%5s" % u"记录ID", "%8s" % u"比赛ID", "%3s" % u"时间", "%5s" % u"主队得分", \
             "%5s" % u"客队得分", "%4s" % u"主队红牌", "%4s" % u"客队红牌", "%2s" % u"类型", \
-            "%3s" % u"公司ID", "%4s" % u"Home", "%4s" % u"Draw", "%4s" % u"Away", "%8s" % u"变盘时间"
+            "%3s" % u"公司ID", "%6s" % u"Home", "%6s" % u"Draw", "%6s" % u"Away", "%10s" % u"变盘时间"
 
         for text1 in all_odds['4']:
             print "%s" % text1[0][3:], "%8s" % text1[1], "%4s" % text1[2], \

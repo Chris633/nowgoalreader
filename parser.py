@@ -1,6 +1,5 @@
 # -*- coding:utf8 -*-
 from xml.dom.minidom import parseString
-import pprint
 import re
 
 
@@ -28,53 +27,73 @@ class ScoreParser(Parser):
     def show_data(self):
         ids = self.__parse__()
         text = self.__find_target__(ids)
-        if text == None:
+
+        if text is None:
             print u"没有找到对应ID的比赛"
             return 0
+
         tags = re.findall(r'<(.*?)>', text)
-        EntoZh = {"ID": u"比赛ID                                    : ",
-                  "color": u"颜色值                                    : ",
-                  "leagueID": u"联赛ID                                    : ",
-                  "kind": u"类型(1联赛,2杯赛)                         : ",
-                  "level": u"是否是重要比赛(1重要赛事,0一般赛事)       : ",
-                  "league": u"赛事类型(简体名,繁体名,英文名)            : ",
-                  "subLeague": u"subLeague                                 : ",
-                  "subLeagueID": u"subLeagueID                               : ",
-                  "time": u"比赛时间                                  : ",
-                  "time2": u"开场时间                                  : ",
-                  "home": u"主队(简体名,繁体名,英文名,主队ID)         : ",
-                  "away": u"客队(简体名,繁体名,英文名,客队ID)         : ",
-                  "state": u"""比赛状态(0未开,1上半场,2中场,3下半场,
-        4加时,-11待定,-12腰斩,-13中断,
-        -14推迟,-1完场，-10取消)          : """,
-                  "homeScore": u"主队比分                                  : ",
-                  "awayScore": u"客队比分                                  : ",
-                  "bc1": u"主队上半场比分                            : ",
-                  "bc2": u"客队上半场比分                            : ",
-                  "red1": u"主队红牌                                  : ",
-                  "red2": u"客队红牌                                  : ",
-                  "yellow1": u"主队黄牌                                  : ",
-                  "yellow2": u"客队黄牌                                  : ",
-                  "order1": u"主队排名                                  : ",
-                  "order2": u"客队排名                                  : ",
-                  "explain": u"比赛说明                                  : ",
-                  "zl": u"是否中立场                                : ",
-                  "tv": u"电视直播                                  : ",
-                  "lineup": u"是否有阵容(1为有)                         : ",
-                  "explain2": u"比赛说明2(加时,点球等)                    : ",
-                  "corner1": u"主队角球                                  : ",
-                  "corner2": u"客队角球                                  : "
-                  }
-        #display=dict()
+        en_to_zh = {
+            "ID": u"比赛ID                                    : ",
+            "color": u"颜色值                                    : ",
+            "leagueID": u"联赛ID                                    : ",
+            "kind": u"类型(1联赛,2杯赛)                         : ",
+            "level": u"是否是重要比赛(1重要赛事,0一般赛事)       : ",
+            "league": u"赛事类型(简体名,繁体名,英文名)            : ",
+            "subLeague": u"subLeague                                 : ",
+            "subLeagueID": u"subLeagueID                               : ",
+            "time": u"比赛时间                                  : ",
+            "time2": u"开场时间                                  : ",
+            "home": u"主队(简体名,繁体名,英文名,主队ID)         : ",
+            "away": u"客队(简体名,繁体名,英文名,客队ID)         : ",
+            "state": u"比赛状态                                  : ",
+            "homeScore": u"主队比分                                  : ",
+            "awayScore": u"客队比分                                  : ",
+            "bc1": u"主队上半场比分                            : ",
+            "bc2": u"客队上半场比分                            : ",
+            "red1": u"主队红牌                                  : ",
+            "red2": u"客队红牌                                  : ",
+            "yellow1": u"主队黄牌                                  : ",
+            "yellow2": u"客队黄牌                                  : ",
+            "order1": u"主队排名                                  : ",
+            "order2": u"客队排名                                  : ",
+            "explain": u"比赛说明                                  : ",
+            "zl": u"是否中立场                                : ",
+            "tv": u"电视直播                                  : ",
+            "lineup": u"是否有阵容(1为有)                         : ",
+            "explain2": u"比赛说明2(加时,点球等)                    : ",
+            "corner1": u"主队角球                                  : ",
+            "corner2": u"客队角球                                  : "
+                    }
+
+        num_to_state = {
+            '0': u'未开',
+            '1': u'上半场',
+            '2': u'中场',
+            '3': u'下半场',
+            '4': u'加时',
+            '-11': u'待定',
+            '-12': u'腰斩',
+            '-13': u'中断',
+            '-14': u'推迟',
+            '-1': u'完场',
+            '-10': u'取消'
+        }
+
         for tag in tags[1:-1]:
             if tag[-1] == '/':
-                #display[tag[:-1]] = 'None'
-                print EntoZh[str(tag[:-1])] + 'None'
+                print en_to_zh[str(tag[:-1])] + 'None'
             elif tag[0] != '/':
-                #display[tag] = re.findall('<'+tag+'>(.*?)</'+tag+'>', text)[0]
-                print EntoZh[str(tag)] + re.findall('<' + tag + '>(.*?)</' + tag + '>', text)[0]
-        #pprint.pprint(display)
+                try:
+                    content = re.findall('<' + tag + '>(.*?)</' + tag + '>', text)
+                    content = content[0] if len(content) > 0 else 'None'
 
+                    if tag == 'state':
+                        content = num_to_state[content]
+
+                    print en_to_zh[str(tag)] + content
+                except KeyError:
+                    pass
 
     def __parse__(self):
         return parseString(self.source).getElementsByTagName('ID')
@@ -134,7 +153,6 @@ class EarlyOddsParser(Parser):
         print u"主队黄牌:" + company_odds['match'].split(',')[21]
         print u"客队黄牌:" + company_odds['match'].split(',')[22]
         print "---------------------------------------------------"
-
 
         print u"3.亚赔(让球盘):" + '\n'
         print u"比赛ID:" + company_odds['asia_handicap'].split(',')[0].strip()

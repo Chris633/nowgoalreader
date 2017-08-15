@@ -96,7 +96,9 @@ class EarlyOddsParser(Parser):
     def show_data(self):
 
         company_odds = self.__find_target__(self.__parse__())
-
+        if company_odds == {}:
+            print u"没有找到对应ID或公司的比赛"
+            return 0
         print "---------------------------------------------------"
         print u"1.联赛资料:"+'\n'
         print u"联赛ID:"+company_odds['league'].split(',')[0].strip()
@@ -348,7 +350,7 @@ class InplayParser(Parser):
             content = id.toxml().split(',')
             company = content[8]
             odds_type = content[7]
-            if company in self.company and odds_type in self.odds_type:
+            if company in self.company and odds_type in self.odds_type and self.target in content[1]:
                 all_odds[odds_type].append(content)
         return all_odds
 

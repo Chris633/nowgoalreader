@@ -324,7 +324,7 @@ class InplayParser(Parser):
             "%5s" % u"客队得分", "%4s" % u"主队红牌", "%4s" % u"客队红牌", "%2s" % u"类型", \
             "%3s" % u"公司ID", "%4s" % u"赔率1", "%4s" % u"赔率2", "%4s" % u"赔率3", "%8s" % u"变盘时间"
 
-        for text1 in all_odds['2']:
+        for text1 in all_odds['4']:
             print "%s" % text1[0][3:], "%8s" % text1[1], "%4s" % text1[2], \
                 "%7s" % text1[3], "%8s" % text1[4], "%8s" % text1[5], \
                 "%8s" % text1[6], "%6s" % text1[7], "%5s" % text1[8], \

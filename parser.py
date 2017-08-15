@@ -1,11 +1,9 @@
-#-*- coding:utf8 -*-
+# -*- coding:utf8 -*-
 from xml.dom.minidom import parseString
 import pprint
 import re
-import sys
-default_encoding = 'utf-8'
-reload(sys)
-sys.setdefaultencoding(default_encoding)
+
+
 class Parser:
 
     def __init__(self, source, target):
@@ -195,44 +193,6 @@ class EarlyOddsParser(Parser):
         print u"即时盘小球赔率:" + company_odds['hbigsmall'].split(',')[7]
         print "---------------------------------------------------"
 
-        # display = dict()
-        # display['europe_id'] = self.target
-        #
-        # match = company_odds[0].split(',')
-        # display['match_time'] = match[2]
-        # display['start_time'] = match[3]
-        # display['home_team'] = match[5]
-        # display['away_team'] = match[10]
-        # display['state'] = match[14]
-        # display['home_score'] = match[15]
-        # display['away_score'] = match[16]
-        # display['home_red_card'] = match[20]
-        # display['away_red_card'] = match[21]
-        #
-        # handicap_odds = company_odds[1].split(',')
-        # handicap = dict()
-        # handicap['home_odds'] = handicap_odds[6]
-        # handicap['line'] = handicap_odds[5]
-        # handicap['away_odds'] = handicap_odds[7]
-        # display['handicap'] = handicap
-        #
-        # standard_odds = company_odds[2].split(',')
-        # standard = dict()
-        # standard['home_odds'] = standard_odds[5]
-        # standard['draw_odds'] = standard_odds[6]
-        # standard['away_odds'] = standard_odds[7]
-        # display['standard'] = standard
-        #
-        # hilo_odds = company_odds[3].split(',')
-        # hilo = dict()
-        # hilo['line'] = hilo_odds[5]
-        # hilo['home_odds'] = hilo_odds[6]
-        # hilo['away_odds'] = hilo_odds[7]
-        # display['hilo'] = hilo
-        #
-        # pprint.pprint(display)
-        # return display
-
     def __find_target__(self, ids):
         result = dict()
 
@@ -243,11 +203,6 @@ class EarlyOddsParser(Parser):
         bigsmalls = ids[4]
         halfs = ids[6]
         hbigsmalls = ids[7]
-
-        # matches = ids[0]
-        # standard = ids[2]
-        # handicap = ids[1]
-        # hilo = ids[3]
 
         for match in matches:
             if self.target in match:
@@ -267,15 +222,6 @@ class EarlyOddsParser(Parser):
         add_to_result(halfs, 'half')
         add_to_result(hbigsmalls, 'hbigsmall')
 
-        # def add_to_result(clauses):
-        #     for clause in clauses:
-        #         company = clause.split(',')[1]
-        #         if self.target in clause and company in self.company:
-        #             result.append(clause)
-        #
-        # add_to_result(standard)
-        # add_to_result(handicap)
-        # add_to_result(hilo)
         return result
 
     def __parse__(self):
@@ -283,13 +229,11 @@ class EarlyOddsParser(Parser):
             return clauses.split(';')
 
         parts = self.source.split('$')
-        #return map(split_clause, parts[1:5])
         return map(split_clause, parts)
 
 
 class InplayParser(Parser):
 
-    #def __init__(self, source, target):
     def __init__(self, source, target, company):
         Parser.__init__(self, source, target)
         self.company = company
@@ -297,7 +241,6 @@ class InplayParser(Parser):
 
     def show_data(self):
         all_odds = self.__find_target__(self.__parse__())
-        #pprint.pprint(all_odds)
         print'-------------------------------------------------------------------------------------------------'
         print "%50s"%"Handicap:\n"
         print "%5s" % u"记录ID","%8s" % u"比赛ID","%3s" % u"时间","%5s" % u"主队得分",\
@@ -332,6 +275,7 @@ class InplayParser(Parser):
                 "%8s" % text1[6], "%6s" % text1[7], "%5s" % text1[8], \
                 "%8s" % text1[9], "%7s" % text1[10], "%6s" % text1[11], "%7s" % text1[12][:-4]
         print'-------------------------------------------------------------------------------------------------'
+
     def __parse__(self):
         return parseString(self.source).getElementsByTagName('h')
 

@@ -1,10 +1,8 @@
-#-*- coding:utf8 -*-
+# -*- coding:utf8 -*-
+
 import downloader
-import myparser
+import parser
 import sys
-default_encoding = 'utf-8'
-reload(sys)
-sys.setdefaultencoding(default_encoding)
 
 TYPE = ['score', 'inplay', 'early']
 
@@ -19,12 +17,12 @@ if __name__ == '__main__':
     p = None
     if type == 'score':
         d = downloader.ScoreDownloader()
-        p = myparser.ScoreParser(d.download(), europe_id)
+        p = parser.ScoreParser(d.download(), europe_id)
     elif type == 'inplay':
         d = downloader.InplayOddsDownloader()
-        p = myparser.InplayParser(d.download(), europe_id, company_id)
+        p = parser.InplayParser(d.download(), europe_id, company_id)
     elif type == 'early':
         d = downloader.EarlyOddsDownloader()
-        p = myparser.EarlyOddsParser(d.download(), europe_id, company_id)
+        p = parser.EarlyOddsParser(d.download(), europe_id, company_id)
 
     p.show_data()

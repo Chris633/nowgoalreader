@@ -20,8 +20,8 @@ class EarlyOddsDownloader(Downloader):
         Downloader.__init__(self)
 
     def download(self):
-        #response = urllib2.urlopen('http://interface.win007.com/zq/odds.aspx')
-        response = open('odds.txt', 'r')
+        response = urllib2.urlopen('http://interface.win007.com/zq/odds.aspx')
+        # response = open('odds.txt', 'r')
         return response.read()
 
 
@@ -30,8 +30,8 @@ class InplayOddsDownloader(Downloader):
         Downloader.__init__(self)
 
     def download(self):
-        #response = urllib2.urlopen('http://interface.win007.com/zq/Odds_Running.aspx')
-        response = open('team.xml', 'r')
+        response = urllib2.urlopen('http://interface.win007.com/zq/Odds_Running.aspx')
+        # response = open('team.xml', 'r')
         return response.read()
 
 
@@ -40,6 +40,6 @@ class ScoreDownloader(Downloader):
         Downloader.__init__(self)
 
     def download(self):
-        #response = urllib2.urlopen('http://interface.win007.com/zq/today.aspx')
-        response = open('score.xml', 'r')
+        response = urllib2.urlopen('http://interface.win007.com/zq/today.aspx')
+        # response = open('score.xml', 'r')
         return response.read()

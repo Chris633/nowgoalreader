@@ -260,21 +260,21 @@ class InplayParser(Parser):
     def show_data(self):
         all_odds = self.__find_target__(self.__parse__())
         print'-------------------------------------------------------------------------------------------------'
-        print "%50s"%"Handicap:\n"
-        print "%5s" % u"记录ID","%8s" % u"比赛ID","%3s" % u"时间","%5s" % u"主队得分",\
-            "%5s" % u"客队得分","%4s" % u"主队红牌","%4s" % u"客队红牌","%2s" % u"类型",\
-            "%3s" % u"公司ID","%4s" % u"赔率1","%4s" % u"赔率2","%4s" % u"赔率3","%8s" % u"变盘时间"
+        print "%50s" % "Handicap:\n"
+        print "%5s" % u"记录ID", "%8s" % u"比赛ID", "%3s" % u"时间", "%5s" % u"主队得分",\
+            "%5s" % u"客队得分", "%4s" % u"主队红牌", "%4s" % u"客队红牌", "%2s" % u"类型",\
+            "%3s" % u"公司ID", "%4s" % u"Home", "%4s" % u"Line", "%4s" % u"Away", "%8s" % u"变盘时间"
 
         for text1 in all_odds['1']:
-            print "%s" % text1[0][3:],"%8s" % text1[1],"%4s" % text1[2],\
-                "%7s" % text1[3],"%8s" % text1[4],"%8s" % text1[5],\
-                "%8s" % text1[6],"%6s" % text1[7],"%5s" % text1[8],\
-                "%8s" % text1[9],"%7s" % text1[10],"%6s" % text1[11],"%7s" % text1[12][:-4]
+            print "%s" % text1[0][3:], "%8s" % text1[1], "%4s" % text1[2],\
+                "%7s" % text1[3], "%8s" % text1[4], "%8s" % text1[5],\
+                "%8s" % text1[6], "%6s" % text1[7], "%5s" % text1[8],\
+                "%8s" % text1[9], "%7s" % text1[10], "%6s" % text1[11], "%7s" % text1[12][:-4]
         print'-------------------------------------------------------------------------------------------------'
         print "%50s" % "Hilo:\n"
         print "%5s" % u"记录ID", "%8s" % u"比赛ID", "%3s" % u"时间", "%5s" % u"主队得分", \
             "%5s" % u"客队得分", "%4s" % u"主队红牌", "%4s" % u"客队红牌", "%2s" % u"类型", \
-            "%3s" % u"公司ID", "%4s" % u"赔率1", "%4s" % u"赔率2", "%4s" % u"赔率3", "%8s" % u"变盘时间"
+            "%3s" % u"公司ID", "%4s" % u"High", "%4s" % u"Line", "%4s" % u"Low", "%8s" % u"变盘时间"
 
         for text1 in all_odds['2']:
             print "%s" % text1[0][3:], "%8s" % text1[1], "%4s" % text1[2], \
@@ -285,7 +285,7 @@ class InplayParser(Parser):
         print "%50s" % "Standard:\n"
         print "%5s" % u"记录ID", "%8s" % u"比赛ID", "%3s" % u"时间", "%5s" % u"主队得分", \
             "%5s" % u"客队得分", "%4s" % u"主队红牌", "%4s" % u"客队红牌", "%2s" % u"类型", \
-            "%3s" % u"公司ID", "%4s" % u"赔率1", "%4s" % u"赔率2", "%4s" % u"赔率3", "%8s" % u"变盘时间"
+            "%3s" % u"公司ID", "%4s" % u"Home", "%4s" % u"Draw", "%4s" % u"Away", "%8s" % u"变盘时间"
 
         for text1 in all_odds['4']:
             print "%s" % text1[0][3:], "%8s" % text1[1], "%4s" % text1[2], \

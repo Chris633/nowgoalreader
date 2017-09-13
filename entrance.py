@@ -5,13 +5,13 @@ import sys
 default_encoding = 'utf-8'
 reload(sys)
 sys.setdefaultencoding(default_encoding)
-TYPE = ['score', 'early']
+TYPE = ['score', 'odds']
 
 
 def print_usage():
-    print 'You should specify checking keyword: {score, inplay, early}'
+    print 'You should specify checking keyword: {score, odds}'
     print 'python entrance.py score ${europe_id}'
-    print 'python entrance.py early ${europe_id} ${company_id}'
+    print 'python entrance.py odds ${europe_id} ${company_id}'
 
 
 if __name__ == '__main__':
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     if check_type == 'score':
         d = downloader.ScoreDownloader()
         p = parser.ScoreParser(d.download(), europe_id)
-    elif check_type == 'early':
+    elif check_type == 'odds':
         company_id = ARGS[3]
         d = downloader.EarlyOddsDownloader()
         p = parser.EarlyOddsParser(d.download(), europe_id, company_id)

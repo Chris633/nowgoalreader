@@ -8,6 +8,7 @@ sys.setdefaultencoding(default_encoding)
 TYPE_BALL = ['soccer','basketball']
 TYPE = ['score', 'inplay', 'early']
 
+
 def print_usage(type_error):
     if type_error == 1:
         print 'You should specify checking keyword type_ball: {soccer, basketball}'
@@ -66,5 +67,6 @@ if __name__ == '__main__':
             company_id = ARGS[4]
             d = downloader.BasketballEarlyOddsDownloader()
             p = parser.BasketballEarlyOddsParser(d.download(), europe_id, company_id)
+
 
     p.show_data()
